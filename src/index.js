@@ -2,7 +2,6 @@ const express = require('express')
 const app = require('./app.js')
 const mongoose = require('mongoose')
 const port = 3000
-const subscriberModel = require('./models/subscribers')
 require("dotenv").config()
 
 

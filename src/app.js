@@ -4,19 +4,8 @@ const subscriberModel = require('./models/subscribers')
 
 // Your code goes here
 
-app.get('/', async (req, res) => {
-  let s 
-    await subscriberModel.find((error, subscriber)=>{}).exec((error, subscriber)=> {
-      if(error){
-        res.error(error)
-      }else{
-        s= subscriber
-        console.log(subscriber)
-        res.json(subscriber)
-      }
-    })
-  })
 
+// on /subscribers will give array of all subscribers in form of array
   app.get('/subscribers', async(req,res)=>{
     try{
       const subscribersList = await subscriberModel.find()
@@ -26,20 +15,20 @@ app.get('/', async (req, res) => {
     }
   })
 
+  // on /subscribers/names will give array of all (name and subscribedChannel) in form of json inside array
   app.get('/subscribers/names', async(req,res)=>{
     try{
-      const subscribersList = await subscriberModel.find({},{name: 1,subscribedChannel: 1})
+      const subscribersList = await subscriberModel.find({},{'_id': 0,name: 1,subscribedChannel: 1})
       res.json(subscribersList)
     }catch(err){
       res.status(500,err)
     }
   })
 
+// on /subscribers/:id where id is params in url insted of :id required _id PRESENT in db if _id is pnt present will return an error else it will return json object 
   app.get('/subscribers/:id',async(req,res)=>{
     const id = req.params.id;
-
     try{
-
      const subscribersList = await subscriberModel.findById(id)
       res.send(subscribersList)
     }catch(err){
