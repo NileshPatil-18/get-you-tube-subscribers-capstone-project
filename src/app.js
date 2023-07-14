@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express()
 const subscriberModel = require('./models/subscribers')
-
+// Middleware to serve static files from the "public" folder
+app.use(express.static('public'));
 // Your code goes here
 
+  app.get('/',(req,res)=>{
+    res.send('index.html')
+  })
 
 // on /subscribers will give array of all subscribers in form of array
   app.get('/subscribers', async(req,res)=>{
