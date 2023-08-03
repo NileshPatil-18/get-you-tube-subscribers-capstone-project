@@ -3,10 +3,14 @@ const app = express()
 const subscriberModel = require('./models/subscribers')
 // Middleware to serve static files from the "public" folder
 app.use(express.static('public'));
+app.set('view engine', 'ejs');
 // Your code goes here
 
   app.get('/',(req,res)=>{
-    res.send('index.html')
+    const currentURL = req.protocol + '://' + req.get('host') + req.originalUrl;
+   //res.send(currentURL)
+    res.render('index',{ curr_url_sub: `${currentURL}subscribers`, curr_url_sub_name: `${currentURL}subscribers/names`} )
+   
   })
 
 // on /subscribers will give array of all subscribers in form of array

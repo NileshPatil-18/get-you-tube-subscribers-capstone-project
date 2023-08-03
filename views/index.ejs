@@ -18,9 +18,9 @@
               <p class="card-text">Get Youtube Subscribers is a simple API application that makes use of node.js and MongoDB as a NoSQL database. The goal of this project is to create an API for there are three routers in it: </p>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"><a href="https://get-youtube-subscribers-r9x2.onrender.com/subscribers" target="_blank">/subscribers</a></li>
-              <li class="list-group-item"><a href="https://get-youtube-subscribers-r9x2.onrender.com/subscribers/names" target="_blank"> /subscribers/names</a></li>
-              <li class="list-group-item"><a id="link" href="#">/subscribers/<input type="text" id="urlInput" placeholder=":ID" onkeydown="redirectOnEnter(event)"></a>        
+              <li class="list-group-item"><a href= <%= curr_url_sub %> target="_blank">/subscribers</a></li>
+              <li class="list-group-item"><a href= <%= curr_url_sub_name %> target="_blank"> /subscribers/names</a></li>
+              <li class="list-group-item"><a id="link" > /subscribers/<input type="text" id="urlInput" placeholder=":ID" onkeydown="redirectOnEnter(event)"></a>        
             </ul>
           </div>
     </div>
@@ -32,7 +32,8 @@
                 event.preventDefault(); // Prevent the default form submission
                 var input = document.getElementById("urlInput");
                 var link = document.getElementById("link");
-                var url = "https://get-youtube-subscribers-r9x2.onrender.com/subscribers/"+input.value;
+                const currentURL = window.location.href;
+                var url =  `${currentURL}subscribers/${input.value}` ;
                 link.href = url;
                 link.target = "_blank"; // Open the URL in a new tab
                 link.click(); // Simulate a click on the anchor tag
