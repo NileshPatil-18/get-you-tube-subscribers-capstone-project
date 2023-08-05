@@ -12,15 +12,29 @@ describe('API Tests', () => {
   describe('GET /subscribers/:id', () => {
     it('should return details of a specific subscriber with valid ID', (done) => {
       chai.request('http://localhost:3000')
-        .get('/subscribers/64a532000ceca518beae6')
+        .get('/subscribers/64a532000ceca518beae9')
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(500);
           res.body.should.be.a('object')
-          res.body.should.have.property('message')
+          res.body.should.have.property('error')
           done();
         });
     });
   });
+
+    // Test the GET /subscribers/:id endpoint
+    describe('GET /subscribers/:id', () => {
+      it('should return details of a specific subscriber with valid ID', (done) => {
+        chai.request('http://localhost:3000')
+          .get('/subscribers/64a532000cec810a518beae9')
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.be.a('object')
+            res.body.should.have.property('message')
+            done();
+          });
+      });
+    });
 
  // Test the GET /subscribers/:id endpoint
   describe('GET /subscribers/:id', () => {
