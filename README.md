@@ -61,3 +61,4 @@ The project utilizes the following technologies:
 - Chai-HTTP: A plugin for Chai that provides HTTP integration testing capabilities.
 - Mocha: A JavaScript testing framework.
 - Nodemon: A utility that automatically restarts the server when changes are detected.
+- Swagger: API documentation and testing framework.

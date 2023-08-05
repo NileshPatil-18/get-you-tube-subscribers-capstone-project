@@ -1,14 +1,27 @@
 const express = require('express');
 const app = express()
 const subscriberModel = require('./models/subscribers')
-// Middleware to serve static files from the "public" folder
-app.use(express.static('public'));
-app.set('view engine', 'ejs');
-// Your code goes here
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('../swagger.js');
+
+  app.set('view engine', 'ejs');
+  
+
+
+  const myMiddleware = (req, res, next) => {
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    console.log('Base URL:', baseUrl);
+    swaggerSpecs.host = baseUrl.slice(7, baseUrl.length)
+    app.use('/api-docs',swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+    next();
+  };
+
+  app.use('/api-docs',myMiddleware);
+  
 
   app.get('/',(req,res)=>{
     const currentURL = req.protocol + '://' + req.get('host') + req.originalUrl;
-   //res.send(currentURL)
+  
     res.render('index',{ curr_url_sub: `${currentURL}subscribers`, curr_url_sub_name: `${currentURL}subscribers/names`} )
    
   })
@@ -19,7 +32,7 @@ app.set('view engine', 'ejs');
       const subscribersList = await subscriberModel.find()
       res.json(subscribersList)
     }catch(err){
-      res.status(500,err)
+      res.status(500).json({error: err})
     }
   })
 
@@ -38,13 +51,19 @@ app.set('view engine', 'ejs');
     const id = req.params.id;
     try{
      const subscribersList = await subscriberModel.findById(id)
-      res.send(subscribersList)
+     
+     if(subscribersList){
+       res.send(subscribersList)
+     }else {
+      res.status(400).json({message: `${id} not found in db` })
+     }
+      
     }catch(err){
-      res.status(400).json({message: err.message})
+      res.status(500).json({error: err.message})
     }
   })
 
-
+  
 
 
 
