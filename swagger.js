@@ -8,7 +8,7 @@ const swagger = {
           "email": "piyushchauhan.work@gmail.com"
       }
   },
-  "schemes": ["http", "https"],
+  "schemes": ["https","http"],
   "host": "",
   "basePath": "/",
   "paths" : {
